@@ -4,23 +4,313 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VPN Hub - Платформа VPN сервисов</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1e293b;
+        }
+
+        /* Навигация */
+        .navbar {
+            background: #0f172a;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo i {
+            color: #4f46e5;
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #4f46e5;
+        }
+
+        .nav-buttons button {
+            padding: 0.5rem 1rem;
+            margin-left: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: white;
+            border: 1px solid white !important;
+        }
+
+        .btn-login:hover {
+            background: white;
+            color: #0f172a;
+        }
+
+        .btn-register {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn-register:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #4f46e5 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin: 3rem 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .btn-cta {
+            background: white;
+            color: #4f46e5;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+        }
+
+        .services h2, .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: #4f46e5;
+        }
+
+        .service-price {
+            font-size: 1.5rem;
+            color: #4f46e5;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .btn-subscribe {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: #4f46e5;
+            margin-bottom: 1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn-submit {
+            background: #4f46e5;
+            color: white;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-submit:hover {
+            background: #7c3aed;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Навигация -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-shield-alt"></i>
-                <span>VPN Hub</span>
+                <span>🔒 VPN Hub</span>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Главная</a></li>
                 <li><a href="#services">Сервисы</a></li>
                 <li><a href="#features">Возможности</a></li>
-                <li><a href="#pricing">Тарифы</a></li>
-                <li><a href="#contact">Контакты</a></li>
             </ul>
             <div class="nav-buttons">
                 <button class="btn-login" onclick="showLoginModal()">Вход</button>
@@ -48,7 +338,7 @@
                     <span class="stat-label">Онлайн соединений</span>
                 </div>
             </div>
-            <button class="btn-cta" onclick="window.location.href='dashboard.html'">Начать использовать</button>
+            <button class="btn-cta" onclick="scrollToServices()">Начать использовать</button>
         </div>
     </section>
 
@@ -56,7 +346,7 @@
     <section id="services" class="services">
         <h2>Популярные VPN сервисы</h2>
         <div class="services-grid" id="servicesGrid">
-            <!-- Сервисы будут загружены через JS -->
+            <!-- Сервисы загрузятся через JavaScript -->
         </div>
     </section>
 
@@ -65,56 +355,278 @@
         <h2>Почему выбирают VPN Hub?</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <i class="fas fa-bolt"></i>
+                <div>⚡</div>
                 <h3>Высокая скорость</h3>
                 <p>Оптимизированные сервера по всему миру</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-lock"></i>
+                <div>🔒</div>
                 <h3>Полная анонимность</h3>
                 <p>Никаких логов и полная шифрация данных</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-globe"></i>
+                <div>🌍</div>
                 <h3>Доступ к контенту</h3>
                 <p>Обходите географические ограничения</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-headset"></i>
+                <div>💬</div>
                 <h3>24/7 Поддержка</h3>
                 <p>Техническая поддержка на русском языке</p>
             </div>
         </div>
     </section>
 
-    <!-- Модальные окна для входа/регистрации -->
+    <!-- Модальное окно входа -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeLoginModal()">&times;</span>
             <h2>Вход в аккаунт</h2>
             <form id="loginForm">
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Пароль" required>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Пароль" required>
                 <button type="submit" class="btn-submit">Войти</button>
             </form>
         </div>
     </div>
 
+    <!-- Модальное окно регистрации -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
             <h2>Регистрация</h2>
             <form id="registerForm">
-                <input type="text" placeholder="Имя пользователя" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Пароль" required>
-                <input type="password" placeholder="Подтвердите пароль" required>
+                <input type="text" id="regUsername" placeholder="Имя пользователя (мин 3 символа)" required>
+                <input type="email" id="regEmail" placeholder="Email" required>
+                <input type="password" id="regPassword" placeholder="Пароль (мин 6 символов)" required>
+                <input type="password" id="regConfirm" placeholder="Подтвердите пароль" required>
                 <button type="submit" class="btn-submit">Зарегистрироваться</button>
             </form>
         </div>
     </div>
 
-    <script src="js/api.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+        // API URL
+        const API_URL = 'http://localhost:5000/api';
+
+        // ============================================
+        // ВАЛИДАЦИЯ ФОРМЫ РЕГИСТРАЦИИ
+        // ============================================
+        function validateRegisterForm() {
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            const confirm = document.getElementById('regConfirm').value;
+            
+            // Проверка длины имени пользователя
+            if (username.length < 3) {
+                alert('Имя пользователя должно содержать минимум 3 символа');
+                return false;
+            }
+            
+            // Проверка наличия @ в email
+            if (!email.includes('@')) {
+                alert('Введите корректный email');
+                return false;
+            }
+            
+            // Проверка длины пароля
+            if (password.length < 6) {
+                alert('Пароль должен содержать минимум 6 символов');
+                return false;
+            }
+            
+            // Проверка совпадения паролей
+            if (password !== confirm) {
+                alert('Пароли не совпадают');
+                return false;
+            }
+            
+            return true;
+        }
+
+        // ============================================
+        // ОСТАЛЬНЫЕ ФУНКЦИИ
+        // ============================================
+
+        // Показать модальное окно входа
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+        }
+
+        // Закрыть модальное окно входа
+        function closeLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+        }
+
+        // Показать модальное окно регистрации
+        function showRegisterModal() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        // Закрыть модальное окно регистрации
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        // Прокрутка к сервисам
+        function scrollToServices() {
+            document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Загрузка статистики
+        async function loadStats() {
+            try {
+                const response = await fetch('http://localhost:5000/api/stats');
+                const data = await response.json();
+                
+                document.getElementById('totalUsers').textContent = data.totalUsers || 0;
+                document.getElementById('activeServices').textContent = data.activeServices || 0;
+                document.getElementById('activeConnections').textContent = data.activeConnections || 0;
+            } catch (error) {
+                console.log('Статистика временно недоступна');
+                document.getElementById('totalUsers').textContent = '150';
+                document.getElementById('activeServices').textContent = '8';
+                document.getElementById('activeConnections').textContent = '42';
+            }
+        }
+
+        // Загрузка списка сервисов
+        async function loadServices() {
+    try {
+        const response = await fetch('http://localhost:5000/api/services');
+        const services = await response.json();
+        
+        const servicesGrid = document.getElementById('servicesGrid');
+        if (servicesGrid) {
+            servicesGrid.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <h3>${service.name}</h3>
+                    <p>${service.description || 'Описание отсутствует'}</p>
+                    <div class="service-price">${service.priceMonthly} ₽/мес</div>
+                    <button class="btn-subscribe" onclick="subscribe(${service.id})">Подписаться</button>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки:', error);
+        document.getElementById('servicesGrid').innerHTML = '<p>Не удалось загрузить сервисы. Убедитесь, что сервер запущен.</p>';
+    }
+}
+
+        // Подписка на сервис
+        async function subscribeToService(serviceId) {
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                alert('Для подписки необходимо войти в аккаунт');
+                showLoginModal();
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}/services/subscribe`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ serviceId, plan: 'monthly' })
+                });
+                
+                if (response.ok) {
+                    alert('Подписка оформлена успешно!');
+                } else {
+                    const error = await response.json();
+                    alert(error.error || 'Ошибка оформления подписки');
+                }
+            } catch (error) {
+                alert('Ошибка подключения к серверу');
+            }
+        }
+
+        // Обработчик формы входа
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    alert('Вход выполнен успешно!');
+                    closeLoginModal();
+                    location.reload();
+                } else {
+                    alert(data.error || 'Ошибка входа');
+                }
+            } catch (error) {
+                alert('Ошибка подключения к серверу');
+            }
+        });
+
+        // Обработчик формы регистрации с ВАЛИДАЦИЕЙ
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // ВЫЗЫВАЕМ ВАЛИДАЦИЮ перед отправкой
+            if (!validateRegisterForm()) {
+                return; // Если валидация не прошла, не отправляем форму
+            }
+            
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    alert('Регистрация прошла успешно!');
+                    closeRegisterModal();
+                    location.reload();
+                } else {
+                    alert(data.error || 'Ошибка регистрации');
+                }
+            } catch (error) {
+                alert('Ошибка подключения к серверу. Убедитесь, что бэкенд запущен на порту 5000');
+            }
+        });
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+            if (event.target === registerModal) {
+                closeRegisterModal();
+            }
+        };
+
+        // Загрузка данных при открытии страницы
+        loadStats();
+        loadServices();
+    </script>
 </body>
 </html>
