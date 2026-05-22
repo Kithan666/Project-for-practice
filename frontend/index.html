@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Hub - Платформа VPN сервисов</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>VPN Hub</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#services">Сервисы</a></li>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#pricing">Тарифы</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-login" onclick="showLoginModal()">Вход</button>
+                <button class="btn-register" onclick="showRegisterModal()">Регистрация</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Ваш универсальный хаб для VPN сервисов</h1>
+            <p>Подключайтесь к лучшим VPN провайдерам мира в одном месте</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" id="totalUsers">0</span>
+                    <span class="stat-label">Пользователей</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="activeServices">0</span>
+                    <span class="stat-label">Активных сервисов</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="activeConnections">0</span>
+                    <span class="stat-label">Онлайн соединений</span>
+                </div>
+            </div>
+            <button class="btn-cta" onclick="window.location.href='dashboard.html'">Начать использовать</button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <h2>Популярные VPN сервисы</h2>
+        <div class="services-grid" id="servicesGrid">
+            <!-- Сервисы будут загружены через JS -->
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Почему выбирают VPN Hub?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>Высокая скорость</h3>
+                <p>Оптимизированные сервера по всему миру</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock"></i>
+                <h3>Полная анонимность</h3>
+                <p>Никаких логов и полная шифрация данных</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-globe"></i>
+                <h3>Доступ к контенту</h3>
+                <p>Обходите географические ограничения</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Поддержка</h3>
+                <p>Техническая поддержка на русском языке</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальные окна для входа/регистрации -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="loginForm">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <button type="submit" class="btn-submit">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <input type="text" placeholder="Имя пользователя" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Пароль" required>
+                <input type="password" placeholder="Подтвердите пароль" required>
+                <button type="submit" class="btn-submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
